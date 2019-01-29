@@ -1,0 +1,29 @@
+/////////////////// Server.java
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+class ServerDate{
+    public static void main(String args[]) throws Exception{
+        
+ServerSocket ss=new ServerSocket(2020);
+            Socket s=ss.accept();
+            DataOutputStream out=new DataOutputStream(s.getOutputStream());
+            out.writeBytes("Server Date: " + (new Date()).toString() + "\n");
+            out.close();
+            s.close();
+    }
+}
+
+
+//////////////////////Client.java
+
+import java.io.*;
+import java.net.*;
+class ClientDate{
+    public static void main(String args[]) throws Exception{
+        Socket s=new Socket(InetAddress.getLocalHost(),2020);        
+        BufferedReader in=new BufferedReader(new InputStreamReader(s.getInputStream()  ));
+        System.out.println(in.readLine());
+    }    
+}
