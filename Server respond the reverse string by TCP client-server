@@ -15,24 +15,19 @@ Socket s=ss.accept();
 DataInputStream dis=new DataInputStream(s.getInputStream());
 DataOutputStream dos=new DataOutputStream(s.getOutputStream());
 
-BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 
 String str="",str2="",str3="";
-
-while(!str.equals("stop")){
 
 str=dis.readUTF();
 
 StringBuilder sb=new StringBuilder(str);
 str3=sb.reverse().toString();
-System.out.println("Person 1:- "+str3);
+System.out.println("Server:- "+str);
 
-System.out.print("Person 2:- ");
-str2=br.readLine();
 
-dos.writeUTF(str2);
+dos.writeUTF(str3);
 dos.flush();
-}
+
 dis.close();
 s.close();
 ss.close();
@@ -62,17 +57,14 @@ BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 
 String str="",str2="";
 
-while(!str.equals("stop")){
-
-System.out.print("Person 1:- ");
+System.out.print("Client:- ");
 str=br.readLine();
 dos.writeUTF(str);
 dos.flush();
 
 str2=dis.readUTF();
-System.out.println("Person 2:- "+str2);
+System.out.println("Server:- "+str2);
 
-}
 dis.close();
 s.close();
 }
