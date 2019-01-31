@@ -1,0 +1,61 @@
+//////////////////////////Server.java
+
+
+import java.net.*;
+
+public class ServerStr{
+
+public static void main(String []args) throws Exception{
+
+	String str="",str2="";
+	DatagramSocket ds=new DatagramSocket(2020);
+	
+	while(true){
+	   
+            byte[] buf=new byte[100];
+	    DatagramPacket dp=new DatagramPacket(buf,100);
+	    ds.receive(dp);
+	    str=new String(dp.getData(),0,dp.getLength());
+	if(!str.equals("Exit")){
+	str2+=str+" ";
+	}
+else{
+break;
+}
+	}	
+    System.out.println(str2);
+    ds.close();
+	}
+}
+
+
+
+////////////////////////////Client.java
+
+
+import java.net.*;
+import java.util.*;
+
+public class ClientStr{
+
+public static void main(String[] args) throws Exception{ 
+
+	DatagramSocket ds=new DatagramSocket();
+        
+	InetAddress ip=InetAddress.getByName("localhost");
+	String str;
+	Scanner ak=new Scanner(System.in);
+	
+System.out.println("Enter Exit to stop");
+
+	while(true){
+
+	System.out.print("Enter Words for sentance :- ");
+	str=ak.nextLine();
+	DatagramPacket dp=new DatagramPacket(str.getBytes(),str.length(),ip,2020);
+	ds.send(dp);
+	
+
+	}
+    }
+}
