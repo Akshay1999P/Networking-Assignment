@@ -1,0 +1,95 @@
+
+/////////////////////////////////Server.java
+
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+class ServerSort{
+
+public static void main(String []args) throws Exception{
+
+ServerSocket ss=new ServerSocket(2020);
+Socket s=ss.accept();
+
+DataInputStream dis=new DataInputStream(s.getInputStream());
+DataOutputStream dos=new DataOutputStream(s.getOutputStream());
+
+
+int a,i,swap;
+int n=dis.readInt();
+int arr[]=new int[n];
+
+
+for(i=0;i<n;i++){
+   arr[i]=dis.readInt();
+}
+
+ for (int c = 0; c < ( n - 1 ); c++) {
+      for (int d = 0; d < (n-c-1); d++) {
+        if (arr[d] > arr[d+1])
+        {
+          swap       = arr[d];
+          arr[d]   = arr[d+1];
+          arr[d+1] = swap;
+        }
+      }
+    }
+for(int k=0;k<n;k++){
+   dos.writeInt(arr[k]);
+ System.out.println(arr[k]);
+}
+
+dis.close();
+s.close();
+ss.close();
+}
+}
+
+
+
+//////////////////////////////////Client.java
+
+
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+
+class ClientSort{
+
+public static void main(String []args) throws Exception{
+
+Socket s=new Socket("localhost",2020);
+
+DataInputStream dis=new DataInputStream(s.getInputStream());
+DataOutputStream dos=new DataOutputStream(s.getOutputStream());
+
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+Scanner scan=new Scanner(System.in);
+
+System.out.print("Enter Size of array:- ");
+int n=scan.nextInt();
+
+int a[]=new int[n];
+
+System.out.print("Enter Data:- ");
+dos.writeInt(n);
+
+for(int i=0;i<n;i++){
+int r=scan.nextInt();
+dos.writeInt(r);
+}
+int r;
+System.out.print("Sorted array:-  "); 
+for(int j=0;j<n;j++) { 
+r=dis.readInt(); 
+System.out.print(r+" "); 
+} 
+
+dis.close();
+s.close();
+}
+}
